@@ -1,12 +1,13 @@
 .PHONY: changes clean coverage-server dependencies
 .DEFAULT_GOAL := .last-build
 
-charm_name=`grep -Eo "^name: *[\"']([A-Za-z0-9\-]*)[\"']" metadata.yaml | sed -E 's/^name: *[\"'\'']([A-Za-z0-9\-]*)[\"'\'']/\1/g'`
+charm_name := $(shell grep -Eo "^name: *[\"']([A-Za-z0-9\-]*)[\"']" metadata.yaml | sed -E 's/^name: *[\"'\'']([A-Za-z0-9\-]*)[\"'\'']/\1/g')
 
 # PHONY GOALS
 
 changes:
 	@grep --exclude=Makefile \
+		  --exclude=.last-* \
 		  --exclude=*requirements.txt \
 		  --exclude-dir=.git \
 		  --exclude-dir=*.egg-info \
@@ -27,12 +28,14 @@ clean:
 coverage-server:
 	@cd htmlcov && python3 -m http.server 5000
 
-dependencies: .last-pip-tools-install dev-requirements.txt requirements.txt
-	@pip-sync dev-requirements.txt requirements.txt
+dependencies: .last-dependencies-install .last-pip-tools-install
+
+.last-dependencies-install: dev-requirements.txt requirements.txt
+	@pip-sync dev-requirements.txt requirements.txt | tee .last-dependencies-install
 
 # REAL GOALS
 
-.last-build: src/* requirements.txt dev-requirements.txt
+.last-build: src/* .last-dependencies-install
 	@echo "Rebuilding charm '${charm_name}'"
 	@(python -m charmcraft build 2>&1 || echo "charmcraft build error") | tee .last-build
 	@(grep "charmcraft build error" .last-build 1>/dev/null 2>&1 && rm -f .last-build && exit 1) || exit 0
@@ -41,8 +44,8 @@ dependencies: .last-pip-tools-install dev-requirements.txt requirements.txt
 	@(pip-compile --version 1>/dev/null 2>&1) || \
 		(pip --disable-pip-version-check install "pip-tools>=5.2.1,<5.3" | tee .last-pip-tools-install)
 
-requirements.txt: setup.py
+requirements.txt: .last-pip-tools-install setup.py
 	@CUSTOM_COMPILE_COMMAND="make dependencies" pip-compile
 
-dev-requirements.txt: dev-requirements.in requirements.txt
+dev-requirements.txt: .last-pip-tools-install dev-requirements.in requirements.txt
 	@CUSTOM_COMPILE_COMMAND="make dependencies" pip-compile  dev-requirements.in
