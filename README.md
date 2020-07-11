@@ -71,7 +71,6 @@ virtualenv will automatically be activated.
 make changes
 ```
 
-
 ## Install The Dependencies
 
 1. Install more development dependencies:
@@ -80,38 +79,54 @@ make changes
 make dependencies
 ```
 
-7. Subsequent installation of development dependencies
+
+## Adding A Development Dependency
+
+1. Add it to `dev-requirements.in` and then run make:
 
 ```
-pip-sync test-requirements.txt
+echo "foo" >> dev-requirements.in
+make dependencies
 ```
 
-## Adding A Test Dependency
+This will crate `dev-requirements.txt` and then install all dependencies
 
-1. Add it to `test-requirements.in` and then compile it:
 
-```
-echo "foo=>1.0.0,<1.1.0" >> test-requirements.in
-pip-compile test-requirements.in
-```
-
-2. Sync the packages installed in your env to the ones declared
-   in the regenerated `test-requirements.txt`
-
-```
-pip-sync test-requirements.txt
-```
-
-3. Commit `test-requirements.in` and `test-requirements.txt`. Both
+2. Commit `test-requirements.in` and `test-requirements.txt`. Both
    files should now be updated and the `foo` package installed in your
    local machine. Make sure to commit both files to the repo to let your
    teammates know of the new dependency.
 
 ```
-git add test-requirements.*
+git add dev-requirements.*
 git commit -m "Add foo to test-requirements.txt"
 git push origin
 ```
+
+
+## Adding A Runtime Dependency
+
+1. Add it to `install_requires=` argument of setup() in setup.py and then run:
+
+```
+make dependencies
+```
+
+This will crate `requirements.txt` and then install all dependencies
+
+
+2. Commit `setup.py` and `requirements.txt`. Both
+   files should now be updated and the `foo` package installed in your
+   local machine. Make sure to commit both files to the repo to let your
+   teammates know of the new dependency.
+
+```
+git add requirements.txt
+git add setup.py
+git commit -m "Add bar to setup.py"
+git push origin
+```
+
 
 ## Running All The Tests
 
