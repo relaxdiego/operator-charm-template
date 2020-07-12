@@ -40,7 +40,7 @@ coverage-server:
 dependencies: .last-dependencies-install .last-pip-tools-install
 
 test: .last-dependencies-install .last-pip-tools-install
-	pytest --capture=no
+	pytest --capture=no -vv
 
 .last-dependencies-install: dev-requirements.txt requirements.txt
 	@pip-sync dev-requirements.txt requirements.txt | tee .last-dependencies-install
