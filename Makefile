@@ -42,10 +42,10 @@ dependencies: .last-dependencies-install .last-pip-tools-install
 test: .last-dependencies-install .last-pip-tools-install
 	pytest --capture=no -vv
 
+# REAL GOALS
+
 .last-dependencies-install: dev-requirements.txt requirements.txt
 	@pip-sync dev-requirements.txt requirements.txt | tee .last-dependencies-install
-
-# REAL GOALS
 
 .last-build: src/* .last-dependencies-install
 	@echo "Rebuilding charm '${charm_name}'"
@@ -53,8 +53,7 @@ test: .last-dependencies-install .last-pip-tools-install
 	@(grep "charmcraft build error" .last-build 1>/dev/null 2>&1 && rm -f .last-build && exit 1) || exit 0
 
 .last-pip-tools-install:
-	@(pip-compile --version 1>/dev/null 2>&1) || \
-		(pip --disable-pip-version-check install "pip-tools>=5.2.1,<5.3" | tee .last-pip-tools-install)
+	@(pip-compile --version 1>/dev/null 2>&1 || pip --disable-pip-version-check install "pip-tools>=5.2.1,<5.3") | tee .last-pip-tools-install
 
 requirements.txt: .last-pip-tools-install setup.py
 	@CUSTOM_COMPILE_COMMAND="make dependencies" pip-compile
