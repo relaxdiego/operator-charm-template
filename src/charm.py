@@ -12,7 +12,7 @@ from ops.model import (
     ModelError,
 )
 
-# Imports of your cham's modules go here
+# Imports of your charm's objects go here
 # import interfaace_foo
 
 

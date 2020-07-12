@@ -7,7 +7,7 @@ from unittest.mock import (
 # Operator Frmework imports go here
 from ops.testing import Harness
 
-# Imports of your charm's modules go here
+# Imports of your charm's objects go here
 from src.charm import ChangeMeCharm
 
 
