@@ -3,6 +3,13 @@
 
 charm_name := $(shell grep -Eo "^name: *[\"']([A-Za-z0-9\-]*)[\"']" metadata.yaml | sed -E 's/^name: *[\"'\'']([A-Za-z0-9\-]*)[\"'\'']/\1/g')
 
+# WARNING: Use the all argument  only while developing the template, not when developing charms
+ifndef all
+	requirements=""
+else
+	requirements=*requirements.txt
+endif
+
 # PHONY GOALS
 
 build: .last-build
@@ -24,7 +31,7 @@ changes:
 clean:
 	@pip uninstall -y -r requirements.txt -r dev-requirements.txt 2>/dev/null || echo -n
 	@pip uninstall -y pip-tools 2>/dev/null || echo -n
-	@rm -fv .last* *.charm
+	@rm -fv .last* *.charm ${requirements}
 	@rm -rfv build/ *.egg-info **/__pycache__ .pytest_cache .tox
 
 coverage-server:
