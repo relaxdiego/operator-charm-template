@@ -2,7 +2,17 @@
 
 ## Quick Start
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan changeme.
+Test and build the charm:
+
+```
+make test build
+```
+
+Deploy using juju
+
+```
+juju deploy ./changeme.charm --changeme-image=changeme/changeme:v1.2.3
+```
 
 
 ## Prepare Your Development Environment
@@ -123,21 +133,20 @@ This will crate `requirements.txt` and then install all dependencies
 ```
 git add requirements.txt
 git add setup.py
-git commit -m "Add bar to setup.py"
+git commit -m "Add bar to requirements.txt"
 git push origin
 ```
 
 
-## Running All The Tests
+## Testing and Building the Charm
 
-1. Ensure you start with a new terminal session because sometimes the shell
-   won't find tox immediately after installation.
-
-2. Run:
+After any change in the charm code, you want to ensure that all unit tests
+pass before building it. This can be easily done by running:
 
 ```
-tox
+make test build
 ```
+
 
 ## Viewing the Coverage Report
 

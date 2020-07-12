@@ -5,7 +5,7 @@
 # gets resolved when compiling this file.
 -c requirements.txt
 
-charmcraft>=0.2.0,<0.3.0
+charmcraft
 flake8
 pytest
 pytest-cov

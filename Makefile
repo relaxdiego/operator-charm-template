@@ -1,9 +1,11 @@
-.PHONY: changes clean coverage-server dependencies
+.PHONY: build changes clean coverage-server dependencies
 .DEFAULT_GOAL := .last-build
 
 charm_name := $(shell grep -Eo "^name: *[\"']([A-Za-z0-9\-]*)[\"']" metadata.yaml | sed -E 's/^name: *[\"'\'']([A-Za-z0-9\-]*)[\"'\'']/\1/g')
 
 # PHONY GOALS
+
+build: .last-build
 
 changes:
 	@grep --exclude=Makefile \
@@ -20,15 +22,18 @@ changes:
 		echo "\nLooks like we're good, champ. Good job changing those changemes!\n"
 
 clean:
-	@pip uninstall -y -r requirements.txt -r dev-requirements.txt
-	@pip uninstall -y pip-tools
-	@rm -fv .last* *.charm *requirements.txt
+	@pip uninstall -y -r requirements.txt -r dev-requirements.txt 2>/dev/null || echo -n
+	@pip uninstall -y pip-tools 2>/dev/null || echo -n
+	@rm -fv .last* *.charm
 	@rm -rfv build/ *.egg-info **/__pycache__ .pytest_cache .tox
 
 coverage-server:
 	@cd htmlcov && python3 -m http.server 5000
 
 dependencies: .last-dependencies-install .last-pip-tools-install
+
+test: .last-dependencies-install .last-pip-tools-install
+	pytest --capture=no
 
 .last-dependencies-install: dev-requirements.txt requirements.txt
 	@pip-sync dev-requirements.txt requirements.txt | tee .last-dependencies-install
