@@ -80,11 +80,11 @@ NOTE: For more available versions, run `pyenv install --list`
 
 ```
 export charm_name=changeme
-pyenv virtualenv 3.5.9 ${charm_name}-3.5.9
-pyenv local ${charm_name}-3.5.9 3.5.9 3.6.10 3.7.7
+pyenv virtualenv 3.7.7 ${charm_name}-3.7.7
+pyenv local ${charm_name}-3.7.7 3.7.7 3.6.10 3.5.9
 ```
 
-Your newly created virtualenv should now be activated if your prompt change
+Your newly created virtualenv should now be activated if your prompt changed
 to the following:
 
 ```
@@ -99,14 +99,6 @@ If you `cd ..` or `cd` anywhere else outside your project directory, the virtual
 will automatically be deactivated. When you `cd` back into the project dir, the
 virtualenv will automatically be activated.
 
-
-## Change All Placeholder Values in the Template
-
-Just run the following to get a real-time list of what you need to change
-
-```
-make changes
-```
 
 ## Install The Dependencies
 
@@ -131,7 +123,7 @@ echo "foo" >> dev-requirements.in
 make dependencies
 ```
 
-This will crate `dev-requirements.txt` and then install all dependencies
+This will create `dev-requirements.txt` and then install all dependencies
 
 
 2. Commit `dev-requirements.in` and `dev-requirements.txt`. Both
