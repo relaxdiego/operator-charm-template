@@ -28,16 +28,11 @@ Cras convallis lorem quis augue vestibulum, eu blandit metus vulputate.
 
 ## Quick Start
 
-Test and build the charm:
+Test, build, and deploy the charm:
 
 ```
-make test build
-```
-
-Deploy using juju
-
-```
-juju deploy ./changeme.charm --resource changeme-image=changeme/changeme:v1.2.3
+make test build && \
+    juju deploy ./changeme.charm --resource changeme-image=changeme/changeme:v1.2.3
 ```
 
 # Developer's Guide
