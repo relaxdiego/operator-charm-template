@@ -204,3 +204,12 @@ results for all Python versions listed in tox.ini's envlist config option
 ```
 tox
 ```
+
+## Need to Start Over?
+
+Sigh, don't we all...oh, wait, you mean with the project's state? Oh, well
+we got you covered there. Just run:
+
+```
+make clean
+```
