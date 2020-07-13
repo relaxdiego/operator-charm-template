@@ -193,3 +193,14 @@ in the auto-generated `htmlcov/` directory. You may leave this server running
 in a separate session as you run the tests so that you can just switch back
 to the browser and hit refresh to see the changes to your coverage down to
 the line of code.
+
+
+## Running the Tests in Multiple Python Versions
+
+More often than not your charm needs to support more than one version of
+Python. This is where tox comes in. Just run the following to get test
+results for all Python versions listed in tox.ini's envlist config option
+
+```
+tox
+```
