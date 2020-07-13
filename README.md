@@ -37,7 +37,7 @@ make test build
 Deploy using juju
 
 ```
-juju deploy ./changeme.charm --changeme-image=changeme/changeme:v1.2.3
+juju deploy ./changeme.charm --resource changeme-image=changeme/changeme:v1.2.3
 ```
 
 # Developer's Guide
