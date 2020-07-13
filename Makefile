@@ -31,8 +31,8 @@ changes:
 clean:
 	@pip uninstall -y -r requirements.txt -r dev-requirements.txt 2>/dev/null || echo -n
 	@pip uninstall -y pip-tools 2>/dev/null || echo -n
-	@rm -fv .last* *.charm ${requirements}
-	@rm -rfv build/ *.egg-info **/__pycache__ .pytest_cache .tox
+	@rm -fv .last* *.charm .coverage ${requirements}
+	@rm -rfv build/ *.egg-info **/__pycache__ .pytest_cache .tox htmlcov
 
 coverage-server:
 	@cd htmlcov && python3 -m http.server 5000
