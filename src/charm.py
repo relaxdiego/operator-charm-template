@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Standard Library imports go here
 from collections import namedtuple
 import logging
