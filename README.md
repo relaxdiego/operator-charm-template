@@ -1,5 +1,11 @@
 ### How To Use This Template
 
+> **WARNING**: This is a **PROOF-OF-CONCEPT** template to help you quickly get started with writing
+>charms built on top of the Operator Framework. It uses charmcraft to build the final charm
+> zip file. More info on how to use charmcraft in [Juju Discourse](https://discourse.juju.is/t/how-to-build-a-charm-using-modern-tools/3246).
+> Please note that this template has neither been reviewed nor adopted by the Charmcraft team so use
+> this template at your own risk.
+
 Browse to [this template's GitHub page](https://github.com/relaxdiego/operator-charm-template)
 then click on the green "Use this template" button. Follow the steps on GitHub to create
 a freshly squeezed charm project! If you need more information before diving in, kindly
